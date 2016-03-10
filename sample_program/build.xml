@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Mar 10, 2016 2:56:48 PM                                                        
+
+     A sample project to test and check the basic functinalities              
+     syed                                                                
+     ====================================================================== -->
+<project name="Sample project" default="build">
+	
+	<property name="src.dir" value="src"></property>
+	<property name="build.dir" value="web/WEB_INF/classes"></property>
+	
+	<path id="classpath">
+		<pathelement path="${build.dir}"/>
+	</path>
+	
+	<target name="build" description="Compile the java and create the classes">
+		<mkdir dir="${build.dir}"/>
+		<javac destdir="${build.dir}" source="1.8" target="1.8">
+			<src path="${src.dir}"></src>
+			<classpath refid="classpath"></classpath>
+		</javac>
+	</target>
+	
+	<jar destfile="web/lib/util.jar" basedir="${build.dir}">		
+	</jar>
+	
+</project>
