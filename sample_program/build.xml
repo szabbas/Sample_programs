@@ -5,16 +5,21 @@
      A sample project to test and check the basic functinalities              
      syed                                                                
      ====================================================================== -->
-<project name="Sample project" default="build">
+<project name="Sample project" default="main">
 	
-	<property name="src.dir" value="src"></property>
+	<property name="src.dir" value="src/sample_program"></property>
 	<property name="build.dir" value="web/WEB_INF/classes"></property>
 	
 	<path id="classpath">
 		<pathelement path="${build.dir}"/>
 	</path>
 	
-	<target name="build" description="Compile the java and create the classes">
+	<target name="clean">
+			<delete dir="${build.dir}"></delete>
+			<delete dir="web/lib"></delete>
+	</target>
+	
+	<target name="compile" description="Compile the java and create the classes">
 		<mkdir dir="${build.dir}"/>
 		<javac destdir="${build.dir}" source="1.8" target="1.8">
 			<src path="${src.dir}"></src>
@@ -22,7 +27,14 @@
 		</javac>
 	</target>
 	
-	<jar destfile="web/lib/util.jar" basedir="${build.dir}">		
-	</jar>
+	<target name="jar" depends="compile">
+		<jar destfile="web/lib/util.jar" basedir="${build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="HelloWorld"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="main" depends="clean"></target>
 	
 </project>
