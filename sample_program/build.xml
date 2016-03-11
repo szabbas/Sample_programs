@@ -10,6 +10,10 @@
 	<property name="src.dir" value="src/sample_program"></property>
 	<property name="build.dir" value="web/WEB_INF/classes"></property>
 	
+	<presetdef name="javac">
+	    <javac includeantruntime="false" />
+	  </presetdef>
+	
 	<path id="classpath">
 		<pathelement path="${build.dir}"/>
 	</path>
@@ -35,6 +39,8 @@
 		</jar>
 	</target>
 	
-	<target name="main" depends="clean,jar"></target>
+	<target name="main" depends="clean,jar">
+		<echo>This is the sample program</echo>
+	</target>
 	
 </project>
