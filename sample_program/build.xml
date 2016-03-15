@@ -41,6 +41,7 @@
 	
 	<target name="main" depends="clean,jar">
 		<echo>This is the sample program</echo>
+		<echo>Added Git Hub</echo>
 	</target>
 	
 </project>
