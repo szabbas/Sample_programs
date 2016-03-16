@@ -1,83 +1,47 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="sample_program">
-    <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="E:/Softwares/spring-tool-suite-3.7.2.RELEASE-e4.5.1-win32-x86_64/sts-bundle/sts-3.7.2.RELEASE/"/>
-    <property name="junit.output.dir" value="junit"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
-    <path id="JUnit 4.libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
-    </path>
-    <path id="sample_program.classpath">
-        <pathelement location="bin"/>
-        <path refid="JUnit 4.libraryclasspath"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="sample_program.classpath"/>
-        </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="Helloworld">
-        <java classname="sample_program.Helloworld" failonerror="true" fork="yes">
-            <classpath refid="sample_program.classpath"/>
-        </java>
-    </target>
-    <target name="Sumofnumbers">
-        <java classname="sample_program.Sumofnumbers" failonerror="true" fork="yes">
-            <classpath refid="sample_program.classpath"/>
-        </java>
-    </target>
-    <target name="HelloTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="sample_program.HelloTest" todir="${junit.output.dir}"/>
-            <classpath refid="sample_program.classpath"/>
-        </junit>
-    </target>
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
-    </target>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Mar 10, 2016 2:56:48 PM                                                        
+
+     A sample project to test and check the basic functinalities              
+     syed                                                                
+     ====================================================================== -->
+<project name="Sample project" default="main">
+	
+	<property name="src.dir" value="src/sample_program"></property>
+	<property name="build.dir" value="web/WEB_INF/classes"></property>
+	
+	<presetdef name="javac">
+	    <javac includeantruntime="false" />
+	  </presetdef>
+	
+	<path id="classpath">
+		<pathelement path="${build.dir}"/>
+	</path>
+	
+	<target name="clean">
+			<delete dir="${build.dir}"></delete>
+			<delete dir="web/lib"></delete>
+	</target>
+	
+	<target name="compile" description="Compile the java and create the classes">
+		<mkdir dir="${build.dir}"/>
+		<javac destdir="${build.dir}" source="1.8" target="1.8">
+			<src path="${src.dir}"></src>
+			<classpath refid="classpath"></classpath>
+		</javac>
+	</target>
+	
+	<target name="jar" depends="compile">
+		<jar destfile="web/lib/util.jar" basedir="${build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="HelloWorld"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="main" depends="clean,jar">
+		<echo>This is the sample program</echo>
+		<echo>Added Git Hub and checked.</echo>
+	</target>
+	
 </project>

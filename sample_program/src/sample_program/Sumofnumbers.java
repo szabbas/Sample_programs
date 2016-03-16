@@ -4,10 +4,7 @@ package sample_program;
 public class Sumofnumbers {
 
 	public static void main(String args[]){
-		
-	}
-	public int add(int a,int b){
-		return a+b;
+		System.out.println("Sum of 5 and 5 is 10");
 	}
 	
 }
