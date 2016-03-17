@@ -40,7 +40,7 @@
 	</target>
 	
 	<target name="main" depends="clean,jar">
-		<echo>This is the sample program..</echo>
+		<echo>This is the sample program.</echo>
 		<echo>Added Git Hub and checked.</echo>
 	</target>
 	
