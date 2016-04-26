@@ -25,7 +25,7 @@
 			<delete dir="web/lib"></delete>
 	</target>
 	
-	<target name="compile" description="Compile the java and create the classes">
+	<target name="compile" description="Compiled the java program and create the classes">
 		<mkdir dir="${build.dir}"/>
 		<javac destdir="${build.dir}" source="1.8" target="1.8">
 			<src path="${src.dir}"></src>
