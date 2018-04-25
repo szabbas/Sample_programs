@@ -15,6 +15,21 @@ node ('master'){
         archiveArtifacts 'sample_program\\web\\lib\\*.jar'
     }
     
+	stage ('Test'){
+	
+		parallel (
+			"IntegrationTest": {
+				echo "Integration Test completed"
+			},			
+			"SmokeTest": {
+				echo "Smoke Test completed"
+			},			
+			"UnitTest": {
+				echo "Unit Test completed"
+			}
+		)
+	}
+	
     stage ('Notifier'){
         
         //emailext attachLog: true, body: "Check console output at ${env.BUILD_URL} to view the results.<br></br> ", subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} ", to: 'syeda@newtglobal.com'
