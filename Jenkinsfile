@@ -17,17 +17,16 @@ node ('master'){
     
 	stage ('Test'){
 	
-		parallel (
-			"IntegrationTest": {
+		parallel IntegrationTest: {
 				echo "Integration Test completed"
 			},			
-			"SmokeTest": {
+			SmokeTest: {
 				echo "Smoke Test completed"
 			},			
-			"UnitTest": {
+			UnitTest: {
 				echo "Unit Test completed"
 			}
-		)
+		
 	}
 	
     stage ('Notifier'){
